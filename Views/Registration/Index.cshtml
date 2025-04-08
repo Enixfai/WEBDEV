@@ -7,11 +7,11 @@
     <form method="post"  asp-controller="Registration" asp-action="Signin">
         <label asp-for="login"></label>
         <input asp-for="login" />
-        <span asp-validation-for="login"></span>
+        <span asp-validation-for="login" class="validation-message"></span>
 
         <label asp-for="password"></label>
         <input asp-for="password" />
-        <span asp-validation-for="password"></span>
+        <span asp-validation-for="password" class="validation-message"></span>
         <button type="submit" >Send</button> 
     </form>
     @if (ViewBag.ErrorMessage != null)

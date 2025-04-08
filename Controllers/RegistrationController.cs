@@ -15,11 +15,6 @@ namespace WEBDEV.Controllers
            
         }
 
-
-      
-
-       
-
         [HttpPost]
         public IActionResult Signin(string login, string password)
         {
