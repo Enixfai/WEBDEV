@@ -1,0 +1,28 @@
+﻿ @model User
+@{
+	ViewData["Title"] = "EMPTY";
+}
+<div class="block">
+    <h1>Sign in</h1>
+    <form method="post"  asp-controller="Registration" asp-action="Signin">
+        <label asp-for="login"></label>
+        <input asp-for="login" />
+        <span asp-validation-for="login"></span>
+
+        <label asp-for="password"></label>
+        <input asp-for="password" />
+        <span asp-validation-for="password"></span>
+        <button type="submit" >Send</button> 
+    </form>
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div style="color: red;">@ViewBag.ErrorMessage</div>
+    }
+    <nav>
+
+        <a href="/Registration/Reg">Log in</a>
+    </nav>
+</div>
+<span>
+    All roots are secured
+</span>

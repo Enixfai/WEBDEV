@@ -1,0 +1,122 @@
+.block {
+    max-width: 360px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+
+}
+
+.logo {
+    border-radius:25px;
+    padding:10px 5px 10px 5px;
+    border: none;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+button:hover {
+    background-color: #45a049;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.validation-message {
+    color: red;
+}
+
+nav {
+    margin-top: 20px;
+    text-align: center;
+}
+
+nav a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.footer-note {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0.85em;
+    color: #777;
+}
+
+body.dark {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark .block {
+    background-color: #1c1c1e;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+    border: 1px solid #444;
+}
+
+body.dark input {
+    background-color: #2c2c2e;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+body.dark button {
+    background-color: #00ffff;
+    color: black;
+}
+
+    body.dark button:hover {
+        background-color: #00e0e0;
+    }
+
+body.dark .error-message,
+body.dark .validation-message {
+    background-color: rgba(255, 76, 76, 0.2);
+    color: #ff4c4c;
+    border: 1px solid #ff4c4c;
+}

@@ -1,0 +1,25 @@
+﻿@model User
+@{
+    ViewData["Title"] = "EMPTY";
+}
+
+<div class="block">
+    <h1>Log in</h1>
+    <form method="post" asp-controller="Registration" asp-action="Login">
+        <label asp-for="login"></label>
+        <input asp-for="login" />
+        <span asp-validation-for="login"></span>
+
+        <label asp-for="password"></label>
+        <input asp-for="password" />
+        <span asp-validation-for="password"></span>
+        <button type="submit">Send</button>
+    </form>
+    <nav>
+
+        <a href="/Registration/Index">Sign in</a>
+    </nav>
+</div>
+<span>
+    All roots are secured
+</span>
