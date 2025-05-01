@@ -21,7 +21,7 @@ namespace WEBDEV.Controllers
             var user = _context.Users.FirstOrDefault(u => u.login == login && u.password == password);
             if (user!=null)
             {
-                return View("Success1");
+                return RedirectToAction("Index", "Catalog");
             }
             ViewBag.ErrorMessage = "Неправильный логин или пароль.";
             return View("Index");
@@ -47,7 +47,7 @@ namespace WEBDEV.Controllers
             {
                 _context.Users.Add(user);
                 _context.SaveChanges();
-                return View("Success1");
+                return RedirectToAction("Index", "Catalog");
             }
             return View("Index");
         }

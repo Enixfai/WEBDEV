@@ -1,0 +1,19 @@
+﻿@model List<Book>
+@{
+    ViewData["Title"] = "Каталог книг";
+}
+<div class="block">
+    <h1>Каталог книг</h1>
+    <div class="book-list">
+        @foreach (var book in Model)
+        {
+            <div class="book-card">
+                <img src="@book.Image" alt="@book.Name" />
+                <h2>@book.Name</h2>
+                <p><strong>Автор:</strong> @book.Author</p>
+                <p>@book.Mark</p>
+                <a href="/Books/Details/@book.Id">Подробнее</a>
+            </div>
+        }
+    </div>
+</div>

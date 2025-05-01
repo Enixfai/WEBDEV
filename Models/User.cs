@@ -6,7 +6,7 @@
         {
         
             public int id { get; set; }
-            [Required(ErrorMessage ="Введите логин")]
+            [Required(ErrorMessage ="Введите логин")] 
 
             [StringLength(100, MinimumLength = 6, ErrorMessage = "Пароль должен содержать от 6 до 100 символов.")]
             public string login { get; set; }
