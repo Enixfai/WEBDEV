@@ -1,0 +1,19 @@
+﻿@model Book
+@{
+    ViewData["Title"] = "Description";
+}
+<div class="book-info-container">
+    <div class="book-image">
+        <img src="@Model.Image" alt="@Model.Name" />
+        <div class="book-mark">@Model.Mark</div>
+    </div>
+    <div class="book-details">
+        <h1>@Model.Name</h1>
+        <p>@Model.Description</p>
+        <h3>@Model.Author</h3>
+        <div class="book-actions">
+            <a class="book-button" href="">Read</a>
+            <a class="book-button bookmark" href="">Bookmark</a>
+        </div>
+    </div>
+</div>

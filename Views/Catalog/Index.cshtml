@@ -2,18 +2,21 @@
 @{
     ViewData["Title"] = "Каталог книг";
 }
-<div class="block">
-    <h1>Каталог книг</h1>
+<div class="catalog-block">
+    <h1>Catalog</h1>
     <div class="book-list">
         @foreach (var book in Model)
         {
+            <a href="/Catalog/Info/@book.Id" class="book-card-link">
             <div class="book-card">
-                <img src="@book.Image" alt="@book.Name" />
+                <div class="book-image-container">
+                    <img src="@book.Image" alt="@book.Name" />
+                    <div class="book-mark">@book.Mark</div>
+                </div>
                 <h2>@book.Name</h2>
-                <p><strong>Автор:</strong> @book.Author</p>
-                <p>@book.Mark</p>
-                <a href="/Books/Details/@book.Id">Подробнее</a>
+                <p><strong>Author:</strong> @book.Author</p>
             </div>
+            </a>
         }
     </div>
 </div>

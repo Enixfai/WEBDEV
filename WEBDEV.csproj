@@ -16,6 +16,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Catalog\Info.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="DBusers.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
