@@ -11,13 +11,27 @@ public class CatalogController : Controller
     {
         _context = context;
     }
-    public IActionResult Index()
-    { 
-        var books = _context.Books.ToList();
+    public IActionResult Index(string searchString)
+    {
+        var books = _context.Books.AsQueryable();
 
-        return View(books);
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            books = books.Where(b => b.Name.ToLower().Contains(searchString.ToLower()));
+        }
+
+        return View(books.ToList());
     }
 
+    public IActionResult Search(string term)
+    {
+        var books = _context.Books.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(term))
+            books = books.Where(b => b.Name.ToLower().Contains(term.ToLower()));
+
+        return PartialView("_BookListPartial", books.ToList());
+    }
     public IActionResult Info(int id)
     {
         var book = _context.Books.FirstOrDefault(x => x.Id == id);

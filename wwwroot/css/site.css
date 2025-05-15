@@ -482,3 +482,36 @@ input[type="file"]#avatarInput {
     background-color: rgba(0, 255, 153, 0.1);
     border: 1px solid #00ff99;
 }
+
+
+.search-input {
+    position: relative;
+    width: 100%;
+}
+
+.search-input input[type="text"] {
+    margin-left:25px;
+    width: 95%;
+    padding: 10px 40px 10px 15px;
+    border-radius: 8px;
+    background-color: #222;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.search-input input[type="text"]:focus {
+    border-color: #00ffff;
+}
+
+.search-button {
+    position: absolute;
+    right:35px;
+    background: none;
+    border: none;
+    color: #00ffff;
+    font-size: 18px;
+    padding: 0px 10px;
+}
+
+

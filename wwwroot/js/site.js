@@ -4,3 +4,4 @@ $(function () {
     $("form").removeData("unobtrusiveValidation");
     $.validator.unobtrusive.parse("form");
 });
+
