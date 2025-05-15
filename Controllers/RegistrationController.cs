@@ -1,14 +1,16 @@
 ﻿using WEBDEV.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace WEBDEV.Controllers
 {
     public class RegistrationController : Controller
     {
         private readonly ApplicationDbContext _context;
-    
-        
+        private readonly PasswordHasher<User> _passwordHasher = new PasswordHasher<User>();
+
+
         public RegistrationController(ApplicationDbContext context)
         {
             _context = context;
@@ -18,16 +20,23 @@ namespace WEBDEV.Controllers
         [HttpPost]
         public IActionResult Signin(string login, string password)
         {
-            var user = _context.Users.FirstOrDefault(u => u.login == login && u.password == password);
-            if (user!=null)
+            var user = _context.Users.FirstOrDefault(u => u.login == login);
+            if (user == null)
             {
-                HttpContext.Session.SetString("UserLogin", user.login);
-                HttpContext.Session.SetInt32("UserId", user.id);
-                HttpContext.Session.SetString("UserImage", user.image);
-                return RedirectToAction("Index", "Catalog");
+                ViewBag.ErrorMessage = "Wrong login or password";
+                return View();
             }
-            ViewBag.ErrorMessage = "Wrong login or password";
-            return View("Index");
+
+            var result = _passwordHasher.VerifyHashedPassword(user, user.password, password);
+            if (result == PasswordVerificationResult.Failed)
+            {
+                ViewBag.ErrorMessage = "Wrong login or password";
+                return View();
+            }
+            HttpContext.Session.SetString("UserLogin", user.login);
+            HttpContext.Session.SetInt32("UserId", user.id);
+            HttpContext.Session.SetString("UserImage", user.image);
+            return RedirectToAction("Index", "Catalog");
         }
 
 
@@ -43,19 +52,17 @@ namespace WEBDEV.Controllers
 
             if (existingUser != null)
             {
-                ViewBag.ErrorMessage = "Пользователь с таким логином уже существует. Выполните вход.";
+                ViewBag.ErrorMessage = "User already exists";
                 return View("Index");
             }
-            if (ModelState.IsValid)
-            {
-                _context.Users.Add(user);
-                _context.SaveChanges();
-                HttpContext.Session.SetString("UserLogin", user.login);
-                HttpContext.Session.SetInt32("UserId", user.id);
-                HttpContext.Session.SetString("UserImage", user.image);
-                return RedirectToAction("Index", "Catalog");
-            }
-            return View("Index");
+            user.password = _passwordHasher.HashPassword(user, user.password);
+            user.image = "/avatars/default.jpg";
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            HttpContext.Session.SetString("UserLogin", user.login);
+            HttpContext.Session.SetInt32("UserId", user.id);
+            HttpContext.Session.SetString("UserImage", user.image);
+            return RedirectToAction("Index", "Catalog");
         }
 
         [HttpPost]

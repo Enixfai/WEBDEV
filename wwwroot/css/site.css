@@ -34,22 +34,26 @@ input {
 button {
     margin-top: 10px;
     padding: 10px;
-    background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 8px;
     font-size: 16px;
-    cursor: pointer;
 
 }
 
 .logo {
-    border-radius:25px;
-    padding:10px 5px 10px 5px;
+    display:flex;
+    margin-top:5px;
+    margin-left:5px;
+    background-color:#32d0d0;
+    border-radius: 25px;
+    width:95px;
+    padding: 10px 5px 10px 5px;
     border: none;
     font-size: 25px;
     font-weight: bold;
     cursor: pointer;
+    text-decoration:none;
 }
 
 

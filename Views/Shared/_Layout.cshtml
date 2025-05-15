@@ -14,11 +14,18 @@
 </head>
 <body>
     <header>
-        <button id="theme-toggle" type="submit" class="logo">MySite</button>
         @using Microsoft.AspNetCore.Http
         @{
             var userLogin = Context.Session.GetString("UserLogin");
             var userImage = Context.Session.GetString("UserImage");
+        }
+        @if (!string.IsNullOrEmpty(userLogin))
+        {
+            <a href="/Catalog/Index" class="logo">MySite</a>
+        }
+        else
+        {
+            <span class="logo">MySite</span>
         }
         @if (!string.IsNullOrEmpty(userLogin))
         {

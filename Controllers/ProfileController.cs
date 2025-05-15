@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using WEBDEV.Models;
 
 public class ProfileController : Controller
 {
     private readonly ApplicationDbContext _context;
+    private readonly PasswordHasher<User> _passwordHasher = new PasswordHasher<User>();
 
     public ProfileController(ApplicationDbContext context)
     {
@@ -77,8 +79,8 @@ public class ProfileController : Controller
     }
 
     [HttpPost]
-    public IActionResult ChangePass(ChangePassword model)
-    {
+       public IActionResult ChangePass(ChangePassword model)
+      {
         int? userId = HttpContext.Session.GetInt32("UserId");
         if (userId == null)
             return RedirectToAction("Login", "Registration");
@@ -93,24 +95,24 @@ public class ProfileController : Controller
             return View(model);
         }
 
-        if (user.password != model.OldPassword)
+        var verifyResult = _passwordHasher.VerifyHashedPassword(user, user.password, model.OldPassword);
+        if (verifyResult == PasswordVerificationResult.Failed)
         {
             ViewBag.ErrorMessage = "Old password is incorrect";
             return View(model);
         }
 
-        if (string.IsNullOrWhiteSpace(model.NewPassword) || model.NewPassword.Length < 6)
+        if (string.IsNullOrEmpty(model.NewPassword) || model.NewPassword.Length < 6)
         {
             ViewBag.ErrorMessage = "New password must contain at least 6 characters";
             return View(model);
         }
 
-        user.password = model.NewPassword;
+        user.password = _passwordHasher.HashPassword(user, model.NewPassword);
         _context.SaveChanges();
 
         ViewBag.SuccessMessage = "Password changed";
         return View(new ChangePassword());
-    }
+       }
 
-
-}
+      }
