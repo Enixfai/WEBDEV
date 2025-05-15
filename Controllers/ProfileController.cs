@@ -27,12 +27,14 @@ public class ProfileController : Controller
     {
         int? userId = HttpContext.Session.GetInt32("UserId");
         if (userId == null || avatar == null)
+        {
             return RedirectToAction("Index");
-
+        }
         var user = _context.Users.FirstOrDefault(u => u.id == userId);
         if (user == null)
+        {
             return NotFound();
-
+        }
         var fileName = $"{Guid.NewGuid()}{Path.GetExtension(avatar.FileName)}";
         var savePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "avatars", fileName);
 
@@ -45,6 +47,26 @@ public class ProfileController : Controller
         _context.SaveChanges();
 
         HttpContext.Session.SetString("UserImage", user.image); 
+
+        return RedirectToAction("Index");
+    }
+    [HttpPost]
+    public IActionResult UpdateLogin(string newLogin)
+    {
+        int? userId = HttpContext.Session.GetInt32("UserId");
+        if (userId == null)
+        {
+            return RedirectToAction("Index");
+        }
+        var user = _context.Users.FirstOrDefault(u => u.id == userId);
+        if (user == null)
+        {
+            return NotFound();
+        }
+        user.login = newLogin;
+        _context.SaveChanges();
+
+        HttpContext.Session.SetString("UserLogin", newLogin);
 
         return RedirectToAction("Index");
     }
