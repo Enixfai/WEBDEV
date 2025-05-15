@@ -15,7 +15,28 @@
 <body>
     <header>
         <button id="theme-toggle" type="submit" class="logo">MySite</button>
-
+        @using Microsoft.AspNetCore.Http
+        @{
+            var userLogin = Context.Session.GetString("UserLogin");
+            var userImage = Context.Session.GetString("UserImage");
+        }
+        @if (!string.IsNullOrEmpty(userLogin))
+        {
+            <div class="profile-icon" style="position: absolute; right: 20px; top: 15px;">
+                @if (string.IsNullOrEmpty(userImage))
+                {
+                    <a href="/Profile/Index">
+                        <img class="avatar" src="/avatars/default.png" alt="Img"/>
+                    </a>
+                }
+                    @if (!string.IsNullOrEmpty(userImage))
+                    {
+                        <a href="/Profile/Index">
+                            <img class="avatar" src="@userImage" alt="Img" />
+                        </a>
+                    }
+            </div>
+        }
     </header>
     <main>
         @RenderBody()

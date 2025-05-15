@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using System.Net.NetworkInformation;
+using AspNetCoreGeneratedDocument;
+using Microsoft.AspNetCore.Mvc;
 using WEBDEV.Models;
 
 public class CatalogController : Controller
@@ -9,7 +12,7 @@ public class CatalogController : Controller
         _context = context;
     }
     public IActionResult Index()
-    {
+    { 
         var books = _context.Books.ToList();
 
         return View(books);

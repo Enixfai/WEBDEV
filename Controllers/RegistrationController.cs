@@ -21,9 +21,12 @@ namespace WEBDEV.Controllers
             var user = _context.Users.FirstOrDefault(u => u.login == login && u.password == password);
             if (user!=null)
             {
+                HttpContext.Session.SetString("UserLogin", user.login);
+                HttpContext.Session.SetInt32("UserId", user.id);
+                HttpContext.Session.SetString("UserImage", user.image);
                 return RedirectToAction("Index", "Catalog");
             }
-            ViewBag.ErrorMessage = "Неправильный логин или пароль.";
+            ViewBag.ErrorMessage = "Wrong login or password";
             return View("Index");
         }
 
@@ -47,9 +50,19 @@ namespace WEBDEV.Controllers
             {
                 _context.Users.Add(user);
                 _context.SaveChanges();
+                HttpContext.Session.SetString("UserLogin", user.login);
+                HttpContext.Session.SetInt32("UserId", user.id);
+                HttpContext.Session.SetString("UserImage", user.image);
                 return RedirectToAction("Index", "Catalog");
             }
             return View("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear(); 
+            return RedirectToAction("Login", "Registration");
         }
 
         [HttpGet]
