@@ -1,0 +1,35 @@
+﻿@model ChangePassword
+
+@{
+    ViewData["Title"] = "Password change";
+}
+
+<div class="container-password-change">
+    <h1>Change password</h1>
+
+    <form asp-action="ChangePass" method="post">
+        <div>
+            <label for="OldPassword">Enter old password</label><br />
+            <input type="password" name="OldPassword" required />
+        </div>
+        <div>
+            <label for="NewPassword">Enter new password</label><br />
+            <input type="password" name="NewPassword" required minlength="6" />
+        </div>
+        <div>
+            <label for="ConfirmPassword">Confirm new password</label><br />
+            <input type="password" name="ConfirmPassword" required minlength="6" />
+        </div>
+        <button type="submit">Change password</button>
+    </form>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <p style="color:red">@ViewBag.ErrorMessage</p>
+    }
+
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <p style="color:green">@ViewBag.SuccessMessage</p>
+    }
+</div>

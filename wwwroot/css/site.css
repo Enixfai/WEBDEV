@@ -427,3 +427,54 @@ body .validation-message {
 input[type="file"]#avatarInput {
     display: none;
 }
+
+
+.container-password-change {
+    max-width: 420px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #1c1c1e;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+    border: 1px solid #444;
+    font-family: Arial, sans-serif;
+    color: #e0e0e0;
+}
+
+.container-password-change form {
+    gap: 30px;
+}
+
+.container-password-change label {
+    margin-bottom: 5px;
+}
+
+.container-password-change input[type="password"] {
+    width:100%;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.container-password-change button:hover {
+    background-color: #00e0e0;
+}
+
+.container-password-change .error-message,
+.container-password-change .success-message {
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.container-password-change .error-message {
+    color: #ff4c4c;
+    background-color: rgba(255, 76, 76, 0.2);
+    border: 1px solid #ff4c4c;
+}
+
+.container-password-change .success-message {
+    color: #00ff99;
+    background-color: rgba(0, 255, 153, 0.1);
+    border: 1px solid #00ff99;
+}

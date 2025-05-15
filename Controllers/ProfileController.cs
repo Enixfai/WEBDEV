@@ -70,5 +70,47 @@ public class ProfileController : Controller
 
         return RedirectToAction("Index");
     }
+    [HttpGet]
+    public IActionResult ChangePass()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult ChangePass(ChangePassword model)
+    {
+        int? userId = HttpContext.Session.GetInt32("UserId");
+        if (userId == null)
+            return RedirectToAction("Login", "Registration");
+
+        var user = _context.Users.FirstOrDefault(u => u.id == userId);
+        if (user == null)
+            return NotFound();
+
+        if (model.NewPassword != model.ConfirmPassword)
+        {
+            ViewBag.ErrorMessage = "Passwords don't match";
+            return View(model);
+        }
+
+        if (user.password != model.OldPassword)
+        {
+            ViewBag.ErrorMessage = "Old password is incorrect";
+            return View(model);
+        }
+
+        if (string.IsNullOrWhiteSpace(model.NewPassword) || model.NewPassword.Length < 6)
+        {
+            ViewBag.ErrorMessage = "New password must contain at least 6 characters";
+            return View(model);
+        }
+
+        user.password = model.NewPassword;
+        _context.SaveChanges();
+
+        ViewBag.SuccessMessage = "Password changed";
+        return View(new ChangePassword());
+    }
+
 
 }
