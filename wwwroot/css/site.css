@@ -314,7 +314,12 @@ body .validation-message {
    font-weight:bold;
    color:white;
 }
-
+.remove-bookmark{
+    background-color:#d11010d9;
+}
+.remove-bookmark:hover {
+    background-color: #9b0404;
+}
 .bookmark:hover {
     background-color:#d1bc0e;
 }

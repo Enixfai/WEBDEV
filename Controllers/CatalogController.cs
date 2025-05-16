@@ -38,6 +38,15 @@ public class CatalogController : Controller
         if (book == null) {
             return NotFound();
         }
+        int? userId = HttpContext.Session.GetInt32("UserId");
+        bool isBookmarked = false;
+
+        if (userId != null)
+        {
+            isBookmarked = _context.Bookmarks.Any(bm => bm.BookId == id && bm.UserId == userId);
+        }
+
+        ViewBag.IsBookmarked = isBookmarked;
         return View(book);
     }
     public IActionResult Read(int id)
@@ -85,5 +94,20 @@ public class CatalogController : Controller
 
         return RedirectToAction("Info", new { id = bookId });
     }
-
+    [HttpPost]
+    public IActionResult RemoveBookmark(int bookId)
+    {
+        int? userId = HttpContext.Session.GetInt32("UserId");
+        if (userId == null)
+        {
+            return RedirectToAction("Login", "Registration");
+        }
+        var bookmark = _context.Bookmarks.FirstOrDefault(bm => bm.BookId == bookId && bm.UserId == userId);
+        if (bookmark != null)
+        {
+            _context.Bookmarks.Remove(bookmark);
+            _context.SaveChanges();
+        }
+        return RedirectToAction("Info", new { id = bookId });
+    }
 }

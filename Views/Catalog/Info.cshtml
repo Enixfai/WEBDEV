@@ -1,6 +1,7 @@
 ﻿@model Book
 @{
     ViewData["Title"] = "Description";
+    bool isBookmarked = ViewBag.IsBookmarked ?? false;
 }
 <div class="book-info-container">
     <div class="book-image">
@@ -13,11 +14,20 @@
         <h3>@Model.Author</h3>
         <div class="book-actions">
             <a class="book-button" href="/Catalog/Read/@Model.Id">Read</a>
-            <form asp-action="AddBookmark" asp-controller="Catalog" method="post">
-                <input type="hidden" name="bookId" value="@Model.Id" />
-                <button type="submit" class="bookmark">Bookmark</button>
-            </form>
-
+            @if (isBookmarked)
+            {
+                <form asp-action="RemoveBookmark" asp-controller="Catalog" method="post">
+                    <input type="hidden" name="bookId" value="@Model.Id" />
+                    <button type="submit" class="book-button remove-bookmark">Remove from bookmarks</button>
+                </form>
+            }
+            else
+            {
+                <form asp-action="AddBookmark" asp-controller="Catalog" method="post">
+                    <input type="hidden" name="bookId" value="@Model.Id" />
+                    <button type="submit" class="book-button bookmark">Bookmark</button>
+                </form>
+            }
         </div>
     </div>
 </div>
