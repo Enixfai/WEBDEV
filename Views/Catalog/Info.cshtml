@@ -28,6 +28,15 @@
                     <button type="submit" class="book-button bookmark">Bookmark</button>
                 </form>
             }
+           @if (ViewBag.UserRole == "Admin")
+            {
+                <form asp-action="DeleteBook" asp-controller="Catalog" method="post" onsubmit="return confirm('Delete book?');">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <button type="submit" class="book-button delete-book">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            }
         </div>
     </div>
 </div>

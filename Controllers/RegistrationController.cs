@@ -33,6 +33,7 @@ namespace WEBDEV.Controllers
                 ViewBag.ErrorMessage = "Wrong login or password";
                 return View();
             }
+            HttpContext.Session.SetString("UserRole", user.role);
             HttpContext.Session.SetString("UserLogin", user.login);
             HttpContext.Session.SetInt32("UserId", user.id);
             HttpContext.Session.SetString("UserImage", user.image);
@@ -43,6 +44,7 @@ namespace WEBDEV.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            HttpContext.Session.Clear();
             return View("Index");
         }
         [HttpPost]
@@ -60,6 +62,7 @@ namespace WEBDEV.Controllers
             user.role = "User";
             _context.Users.Add(user);
             _context.SaveChanges();
+            HttpContext.Session.SetString("UserRole", user.role);
             HttpContext.Session.SetString("UserLogin", user.login);
             HttpContext.Session.SetInt32("UserId", user.id);
             HttpContext.Session.SetString("UserImage", user.image);
@@ -81,6 +84,7 @@ namespace WEBDEV.Controllers
 
         public IActionResult Index()
         {
+            HttpContext.Session.Clear();
             return View();
         }
 

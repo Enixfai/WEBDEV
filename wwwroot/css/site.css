@@ -225,9 +225,9 @@ body .validation-message {
 
 .book-actions{
     display:flex;
-
-
 }
+
+
 .book-card-link {
     text-decoration: none;
     color: inherit;

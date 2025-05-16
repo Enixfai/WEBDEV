@@ -40,7 +40,8 @@ public class CatalogController : Controller
         }
         int? userId = HttpContext.Session.GetInt32("UserId");
         bool isBookmarked = false;
-
+        string userRole = HttpContext.Session.GetString("UserRole") ?? "";
+        ViewBag.UserRole = userRole;
         if (userId != null)
         {
             isBookmarked = _context.Bookmarks.Any(bm => bm.BookId == id && bm.UserId == userId);
@@ -151,5 +152,32 @@ public class CatalogController : Controller
        
         return View(book);
     }
+    [HttpPost]
+    public async Task<IActionResult> DeleteBook(int id)
+    {
+        var book = await _context.Books.FindAsync(id);
+        if (book == null)
+        {
+            return NotFound();
+        }
 
+        var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", book.Image.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
+        if (System.IO.File.Exists(imagePath))
+        {
+            System.IO.File.Delete(imagePath);
+        }
+
+        var textPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", book.Text.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
+        if (System.IO.File.Exists(textPath))
+        {
+            System.IO.File.Delete(textPath);
+        }
+
+        _context.Books.Remove(book);
+        await _context.SaveChangesAsync();
+
+        TempData["SuccessMessage"] = "Book was successfully deleted";
+        return RedirectToAction("Index"); 
+    }
 }
+
