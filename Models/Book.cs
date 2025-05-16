@@ -11,7 +11,7 @@
         [Required]
         public string Author { get; set; }
         [Required]
-        public decimal Mark { get; set; }
+        public int Mark { get; set; }
         public string Image { get; set; }
         [Required]
         public string Description { get; set; }

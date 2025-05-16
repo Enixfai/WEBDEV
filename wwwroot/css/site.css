@@ -537,7 +537,11 @@ input[type="file"]#avatarInput {
     font-size: 18px;
     padding: 0px 10px;
 }
-
+.sort-select {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .bookmarks-container {
     max-width: 900px;
     margin: 20px auto;

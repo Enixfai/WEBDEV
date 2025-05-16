@@ -2,6 +2,7 @@
 using AspNetCoreGeneratedDocument;
 using Microsoft.AspNetCore.Mvc;
 using WEBDEV.Models;
+using Microsoft.EntityFrameworkCore;
 
 public class CatalogController : Controller
 {
@@ -10,17 +11,33 @@ public class CatalogController : Controller
     {
         _context = context;
     }
-    public IActionResult Index(string searchString)
+    public async Task<IActionResult> Index(string searchString, string sortOrder)
     {
-        var books = _context.Books.AsQueryable();
+        var books = from b in _context.Books
+                    select b;
 
         if (!string.IsNullOrEmpty(searchString))
         {
             books = books.Where(b => b.Name.ToLower().Contains(searchString.ToLower()));
         }
+        switch (sortOrder)
+        {
+            case "name_desc":
+                books = books.OrderByDescending(b => b.Name);
+                break;
+            case "mark_asc":
+                books = books.OrderBy(b => b.Mark);
+                break;
+            case "mark_desc":
+                books = books.OrderByDescending(b => b.Mark);
+                break;
+            default: 
+                books = books.OrderBy(b => b.Name);
+                break;
+        }
 
-
-        return View(books.ToList());
+        ViewBag.CurrentSort = sortOrder;
+        return View(await books.ToListAsync());
     }
 
     public IActionResult Search(string term)
@@ -179,5 +196,6 @@ public class CatalogController : Controller
         TempData["SuccessMessage"] = "Book was successfully deleted";
         return RedirectToAction("Index"); 
     }
+
 }
 

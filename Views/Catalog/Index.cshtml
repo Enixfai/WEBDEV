@@ -5,15 +5,25 @@
 
 <div class="catalog-block">
     <h1>Catalog</h1>
-
     <form method="get" asp-controller="Catalog" asp-action="Index" class="search-form">
+        <div class="sort-select">
+            <label for="sortOrder"> </label>
+            <select id="sortOrder" name="sortOrder" onchange="this.form.submit()">
+                <option value="name_asc" @(ViewBag.CurrentSort == "name_asc" ? "selected=\"selected\"" : "")>Name (A-Z)</option>
+                <option value="name_desc" @(ViewBag.CurrentSort == "name_desc" ? "selected=\"selected\"" : "")>Name (Z-A)</option>
+                <option value="mark_desc" @(ViewBag.CurrentSort == "mark_desc" ? "selected=\"selected\"" : "")>Rating (High to Low)</option>
+                <option value="mark_asc" @(ViewBag.CurrentSort == "mark_asc" ? "selected=\"selected\"" : "")>Rating (Low to High)</option>
+            </select>
+        </div>
         <div class="search-input">
-            <input type="text" id="searchBox" name="searchString" placeholder="Search by name" />
+            <input type="text" id="searchBox" name="searchString" placeholder="Search by name" value="@(ViewData["searchString"] ?? "")" />
             <button type="submit" class="search-button" aria-label="Search">
                 <i class="fas fa-search"></i>
             </button>
         </div>
     </form>
+
+        
 
     <div class="book-list">
         @foreach (var book in Model)
