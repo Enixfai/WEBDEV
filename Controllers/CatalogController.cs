@@ -110,4 +110,46 @@ public class CatalogController : Controller
         }
         return RedirectToAction("Info", new { id = bookId });
     }
+
+    public IActionResult AddBook()
+    {
+        return View();
+    }
+    [HttpPost]
+    public async Task<IActionResult> AddBook(Book book, IFormFile imageFile, IFormFile textFile)
+    {
+        ModelState.Remove("Text");
+        ModelState.Remove("Image");
+
+        if (ModelState.IsValid && imageFile != null && textFile != null)
+        {
+            var imageFileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
+            var textFileName = Guid.NewGuid().ToString() + Path.GetExtension(textFile.FileName);
+
+            var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", imageFileName);
+            var textPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/text", textFileName);
+
+            using (var stream = new FileStream(imagePath, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(stream);
+            }
+
+            using (var stream = new FileStream(textPath, FileMode.Create))
+            {
+                await textFile.CopyToAsync(stream);
+            }
+
+            book.Image = "/images/" + imageFileName;
+            book.Text = "/text/" + textFileName;
+
+            _context.Books.Add(book);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "The book has been added successfully!";
+            return RedirectToAction("AddBook");
+        }
+       
+        return View(book);
+    }
+
 }

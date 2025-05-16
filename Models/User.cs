@@ -17,6 +17,6 @@
             
             public string image {  get; set; }
 
-
+            public string role {  get; set; }
         }
     }

@@ -1,0 +1,41 @@
+﻿@model Book
+@{
+    ViewData["Title"] = "Add Book";
+}
+
+<div class="add-book-container">
+    <h1>Add Book</h1>
+
+    <form asp-action="AddBook" asp-controller="Catalog" method="post" enctype="multipart/form-data">
+        <div>
+            <label>Name:</label>
+            <input type="text" name="Name" required />
+        </div>
+        <div>
+            <label>Author:</label>
+            <input type="text" name="Author" required />
+        </div>
+        <div>
+            <label>Description:</label>
+            <textarea name="Description" required></textarea>
+        </div>
+        <div>
+            <label>Rating(Mark):</label>
+            <input type="number" name="Mark" min="0" max="10" step="1" required />
+        </div>
+        <div>
+            <label>Image:</label>
+            <input type="file" name="imageFile" accept="image/*" required />
+        </div>
+        <div>
+            <label>Text File:</label>
+            <input type="file" name="textFile" accept=".txt" required />
+        </div>
+        <button type="submit">Add</button>
+    </form>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="success-message">@TempData["SuccessMessage"]</div>
+    }
+</div>

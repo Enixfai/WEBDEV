@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Profile";
+   
 }
 
 <div class="profile-container">
@@ -34,7 +35,12 @@
             </form>
         </div>
     </div>
-
+    @if (Model.role == "Admin")
+    {
+        <div class ="addbook-container">
+            <a href="/Catalog/AddBook" class="addbook-btn">Add book</a>
+        </div>
+    }
     <form asp-controller="Registration" asp-action="Logout" method="post">
         <button type="submit" class="logout-btn">Exit</button>
     </form>

@@ -6,12 +6,16 @@
         public class Book
         {
         public int Id {  get; set; }
-        public string Name { get; set; }   
+        [Required]
+        public string Name { get; set; }
+        [Required]
         public string Author { get; set; }
-        public int Mark { get; set; }
+        [Required]
+        public decimal Mark { get; set; }
         public string Image { get; set; }
+        [Required]
         public string Description { get; set; }
         public string Text { get; set; }
         }
 
-}
+    }

@@ -223,6 +223,11 @@ body .validation-message {
     margin: 5px 0;
 }
 
+.book-actions{
+    display:flex;
+
+
+}
 .book-card-link {
     text-decoration: none;
     color: inherit;
@@ -399,7 +404,7 @@ body .validation-message {
 
 .logout-btn {
     width: 100%;
-    margin-top: 25px;
+    margin-top: 55px;
     padding: 10px;
     border: none;
     border-radius: 6px;
@@ -550,5 +555,49 @@ input[type="file"]#avatarInput {
     background-color: #282222c7;
 }
 
+.addbook-container {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+    margin-top: 20px;
+}
 
+.addbook-btn {
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    background-color: #29b40e;
+    padding: 7px;
+    border-radius: 10px;
+    color: #efecece6;
+    font-weight: bold;
+}
+.addbook-btn:hover {
+    color: #efecece6;
+    background-color: #0d9008cd;
+}
 
+.add-book-container {
+    max-width: 600px;
+    margin: 40px auto;
+    background-color: #1c1c1e;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 2px 30px rgba(0, 0, 0, 1);
+}
+
+.add-book-container input[type="text"]{
+    width:100%;
+}
+.add-book-container input[type="file"] {
+    width: 100%;
+}
+
+.add-book-container textarea {
+    background-color: #34303095;
+    color:#f2e4e4;
+    width:100%;
+}
+
+.success-message{
+    color:#8fdc1f;
+}
