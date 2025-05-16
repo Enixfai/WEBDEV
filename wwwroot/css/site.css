@@ -41,6 +41,7 @@ button {
 
 }
 
+
 .logo {
     display:flex;
     margin-top:5px;
@@ -55,8 +56,17 @@ button {
     cursor: pointer;
     text-decoration:none;
 }
-
-
+.main-buttons {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.bookmark-button {
+    font-size: 28px;
+}
 button:hover {
     background-color: #45a049;
 }
@@ -284,6 +294,8 @@ body .validation-message {
 }
 
 .book-button {
+    display:flex;
+    margin-top:10px;
     padding: 10px 20px;
     background-color: #00b894;
     color: white;
@@ -297,12 +309,14 @@ body .validation-message {
     color:white;
 }
 
-.book-button.bookmark {
-    background-color: #0984e3;
+.bookmark {
+   background-color:#cea91ae8;
+   font-weight:bold;
+   color:white;
 }
 
-.book-button.bookmark:hover {
-    background-color: #076bb4;
+.bookmark:hover {
+    background-color:#d1bc0e;
 }
 
 .profile-container {
@@ -513,5 +527,23 @@ input[type="file"]#avatarInput {
     font-size: 18px;
     padding: 0px 10px;
 }
+
+.bookmarks-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+.empty-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #e6cfcf;
+    margin-top: 50px;
+    box-shadow: 0 0 3px rgb(0, 0, 0, 0,1);
+    padding: 30px;
+    border-radius: 8px;
+    background-color: #282222c7;
+}
+
 
 

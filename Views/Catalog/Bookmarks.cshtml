@@ -1,0 +1,35 @@
+﻿@model List<Book>
+
+@{
+    ViewData["Title"] = "Your Bookmarks";
+}
+
+<div class="bookmarks-container">
+    <h1>Your Bookmarks</h1>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="empty-message">
+            <p>You don't have bookmarks yet.</p>
+            <p>Add books to your bookmarks so they appear here.</p>
+        </div>
+    }
+    else
+    {
+        <div class="book-list">
+            @foreach (var book in Model)
+            {
+                <a href="/Catalog/Info/@book.Id" class="book-card-link">
+                    <div class="book-card">
+                        <div class="book-image-container">
+                            <img src="@book.Image" alt="@book.Name" />
+                            <div class="book-mark">@book.Mark</div>
+                        </div>
+                        <h2>@book.Name</h2>
+                        <p><strong>Author:</strong> @book.Author</p>
+                    </div>
+                </a>
+            }
+        </div>
+    }
+</div>

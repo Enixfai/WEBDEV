@@ -1,5 +1,4 @@
-﻿
-using System.Net.NetworkInformation;
+﻿using System.Net.NetworkInformation;
 using AspNetCoreGeneratedDocument;
 using Microsoft.AspNetCore.Mvc;
 using WEBDEV.Models;
@@ -19,6 +18,7 @@ public class CatalogController : Controller
         {
             books = books.Where(b => b.Name.ToLower().Contains(searchString.ToLower()));
         }
+
 
         return View(books.ToList());
     }
@@ -49,4 +49,41 @@ public class CatalogController : Controller
         ViewBag.BookName = book.Name;
         return View("Read", text);
     }
+
+
+    public IActionResult Bookmarks()
+    {
+        int? userId = HttpContext.Session.GetInt32("UserId");
+        if (userId == null)
+        {
+            return RedirectToAction("Login", "Registration");
+        }
+        var bookmarks = _context.Bookmarks.Where(b => b.UserId == userId).Select(b => b.Book).ToList();
+        return View(bookmarks);
+    }
+    
+
+    [HttpPost]
+    public IActionResult AddBookmark(int bookId)
+    {
+        int? userId = HttpContext.Session.GetInt32("UserId");
+        if (userId == null)
+        {
+            return RedirectToAction("Login", "Registration");
+        }
+        bool alreadyExists = _context.Bookmarks.Any(b => b.BookId == bookId && b.UserId == userId);
+        if (!alreadyExists)
+        {
+            var bookmark = new Bookmark
+            {
+                UserId = userId.Value,
+                BookId = bookId
+            };
+            _context.Bookmarks.Add(bookmark);
+            _context.SaveChanges();
+        }
+
+        return RedirectToAction("Info", new { id = bookId });
+    }
+
 }

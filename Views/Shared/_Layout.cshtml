@@ -29,19 +29,23 @@
         }
         @if (!string.IsNullOrEmpty(userLogin))
         {
-            <div class="profile-icon" style="position: absolute; right: 20px; top: 15px;">
+            <div class="main-buttons">
+                <a class="bookmark-button" href="/Catalog/Bookmarks">
+                    <i class="fas fa-bookmark"></i>
+                </a>
+
                 @if (string.IsNullOrEmpty(userImage))
                 {
                     <a href="/Profile/Index">
-                        <img class="avatar" src="/avatars/default.png" alt="Img"/>
+                        <img class="avatar" src="/avatars/default.png" alt="Img" />
                     </a>
                 }
-                    @if (!string.IsNullOrEmpty(userImage))
-                    {
-                        <a href="/Profile/Index">
-                            <img class="avatar" src="@userImage" alt="Img" />
-                        </a>
-                    }
+                else
+                {
+                    <a href="/Profile/Index">
+                        <img class="avatar" src="@userImage" alt="Img" />
+                    </a>
+                }
             </div>
         }
     </header>

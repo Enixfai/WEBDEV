@@ -56,7 +56,7 @@ namespace WEBDEV.Controllers
                 return View("Index");
             }
             user.password = _passwordHasher.HashPassword(user, user.password);
-            user.image = "/avatars/default.jpg";
+            user.image = "/avatars/default.png";
             _context.Users.Add(user);
             _context.SaveChanges();
             HttpContext.Session.SetString("UserLogin", user.login);
